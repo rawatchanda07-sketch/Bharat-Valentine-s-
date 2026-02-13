@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>For Bharat 💘</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff5fa2, #ffd1dc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Floating Hearts */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp 8s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 0.7; }
+      100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+    }
+
+    .card {
+      background: white;
+      padding: 28px;
+      border-radius: 22px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+      width: 92%;
+      max-width: 430px;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 8px;
+      color: #e6005c;
+    }
+
+    .sub {
+      font-size: 15px;
+      color: #555;
+      margin-bottom: 18px;
+    }
+
+    button {
+      border: none;
+      padding: 12px 22px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+      font-weight: bold;
+    }
+
+    #yesBtn {
+      background: #ff2e63;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.05);
+    }
+
+    #noBtn {
+      background: #f1f1f1;
+      color: #333;
+      position: relative;
+    }
+
+    .msg {
+      margin-top: 18px;
+      font-size: 17px;
+      color: #e6005c;
+      font-weight: bold;
+      display: none;
+      line-height: 1.6;
+    }
+
+    .heartLine {
+      font-size: 22px;
+      margin-top: 10px;
+    }
+
+    /* Music Button */
+    #musicBtn {
+      display: none;
+      margin-top: 18px;
+      background: #ff5fa2;
+      color: white;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 15px;
+    }
+
+    #extraMsg {
+      margin-top: 12px;
+      font-size: 16px;
+      color: #ff2e63;
+      font-weight: bold;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating hearts container -->
+  <div class="hearts" id="hearts"></div>
+
+  <div class="card">
+    <h1>Bharat ❤️</h1>
+    <div class="sub">From Chanda (your forever Valentine) 💍</div>
+
+    <h1>Will you be my Valentine? 💘</h1>
+
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No 🙈</button>
+
+    <div id="extraMsg">Arey maan jao na 😭❤️</div>
+
+    <!-- YES ke baad wala message -->
+    <div class="msg" id="message">
+      Yayyy Bharat! 🥹❤️ <br><br>
+
+      You’re not just my Valentine… <br>
+      you’re my forever. 💍✨ <br><br>
+
+      I can’t wait to marry you and spend my whole life with you. <br>
+      I love you so much ❤️ <br><br>
+
+      <b>Forever yours, <br>
+      Chanda 💖</b>
+
+      <div class="heartLine">💖💖💖</div>
+
+      <button id="musicBtn">🎶 Play Our Love Song</button>
+    </div>
+
+    <!-- Hidden Audio -->
+    <audio id="song" loop>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+    const extraMsg = document.getElementById("extraMsg");
+
+    const musicBtn = document.getElementById("musicBtn");
+    const song = document.getElementById("song");
+
+    let noClicks = 0;
+
+    // YES CLICK
+    yesBtn.addEventListener("click", () => {
+      message.style.display = "block";
+      yesBtn.style.display = "none";
+      noBtn.style.display = "none";
+      extraMsg.style.display = "none";
+
+      musicBtn.style.display = "inline-block";
+    });
+
+    // NO CLICK (moves + counts)
+    noBtn.addEventListener("click", () => {
+      noClicks++;
+
+      // Move button
+      const x = Math.random() * 260 - 130;
+      const y = Math.random() * 260 - 130;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+      // After 5 clicks show msg
+      if (noClicks >= 5) {
+        extraMsg.style.display = "block";
+      }
+    });
+
+    // MUSIC BUTTON
+    let isPlaying = false;
+    musicBtn.addEventListener("click", () => {
+      if (!isPlaying) {
+        song.play();
+        musicBtn.innerText = "⏸ Pause Song";
+        isPlaying = true;
+      } else {
+        song.pause();
+        musicBtn.innerText = "🎶 Play Our Love Song";
+        isPlaying = false;
+      }
+    });
+
+    // Floating hearts generator
+    const heartsContainer = document.getElementById("hearts");
+    const heartEmojis = ["💖","💕","💘","❤️","💗","💓"];
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerText = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (16 + Math.random() * 20) + "px";
+      heart.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+      heartsContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }
+
+    setInterval(createHeart, 350);
+  </script>
+
+</body>
+</html>
